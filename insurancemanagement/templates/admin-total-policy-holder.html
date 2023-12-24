@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+</head>
+
+<body>
+{% include 'admin-header.html' %}
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Serial No</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Policy Name</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tbody>
+                        {% for user in policyholder %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ user.customer.name }}</td>
+                                <td>{{ user.policy.policy_name }}</td>
+                                <td>{{ user.status }}</td>
+                                <td>
+                                    {% if user.status == "Approved" %}
+                                        <a href="" class="" disabled>
+                                            Approved
+                                        </a>
+                                        <a href="#" class="btn btn-danger btn-sm" disabled>
+                                            Disapproved
+                                        </a>
+
+                                    {% elif user.status == "Disapproved" %}
+                                        <a href="#" class="btn btn-danger btn-sm" disabled>
+                                            Disapproved
+                                        </a>
+                                        <a href="{% url 'admin-approved-policy' pk=user.pk %}" class="btn btn-warning btn-sm">
+                                            Approve
+                                        </a>
+                                    {% else %}
+                                        <a href="{% url 'admin-approved-policy' pk=user.pk %}" class="btn btn-warning btn-sm">
+                                            Approve
+                                        </a>
+                                        <a href="#" class="btn btn-danger btn-sm">
+                                            Disapproved
+                                        </a>
+                                    {% endif %}
+                                </td>
+                                
+                                    
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Add Bootstrap JS and Popper JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

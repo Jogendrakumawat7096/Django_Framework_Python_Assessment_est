@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+</head>
+
+<body>
+{% include 'admin-header.html' %}
+<div class="container-xxl py-5">
+    <div class="container">
+        <h1>Policy User</h1>
+        {%if msg%}
+            <span style="color:blue">{{msg}}</span>
+        {%endif%}
+            <form action="{% url 'admin-policy-edit' pk=policy.pk %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="category ">Category:</label>
+                    <select name="category" id="category" class="form-select">
+                      {% for cat in categories %}
+                        <option value="{{ cat.name }}">{{ cat.name }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+            
+                  <div class="mb-3">
+                    <label for="policy_name">Policy Name:</label>
+                    <input type="text" name="policy_name" id="policy_name" class="form-control" value="{{policy.policy_name}}" >
+                  </div>
+            
+                  <div class="mb-3">
+                    <label for="policy_desc">Policy Description:</label>
+                    <textarea name="policy_desc" id="policy_desc" class="form-control">{{policy.policy_desc}}</textarea>
+                  </div>
+            
+                  <div class="mb-3">
+                    <label for="sum_insurance">Sum Insurance:</label>
+                    <input type="number" name="sum_insurance" id="sum_insurance" class="form-control" value="{{policy.sum_insurance}}">
+                  </div>
+            
+                  <div class="mb-3">
+                    <label for="premium">Premium:</label>
+                    <input type="number" name="premium" id="premium" class="form-control" value="{{policy.premium}}">
+                  </div>
+            
+                  <div class="mb-3">
+                    <label for="tenure">Tenure:</label>
+                    <input type="number" name="tenure" id="tenure" class="form-control" value="{{policy.tenure}}">
+                  </div>
+        
+                <button type="submit" class="btn btn-primary">Update Policy</button>
+            </form>
+      
+    
+    </div>
+</div>
+
+
+
+
+<!-- Add Bootstrap JS and Popper JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

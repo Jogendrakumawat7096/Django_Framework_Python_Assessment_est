@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+</head>
+
+<body>
+{% include 'admin-header.html' %}
+<div class="container-xxl py-5">
+    <div class="container">
+        <h1>Edit User</h1>
+        {%if msg%}
+            <span style="color:blue">{{msg}}</span>
+        {%endif%}
+            <form action="{% url 'admin-customer-edit' email=user.email %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="name" class="form-label">User Name</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ user.name }}">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">User Email</label>
+                    <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}">
+                </div>
+                <div class="mb-3">
+                    <label for="mobile" class="form-label">User Mobile Number</label>
+                    <input type="text" class="form-control" id="mobile" name="mobile" value="{{ user.mobile }}">
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">User Image</label>
+                    <input type="file" name="image" accept="image/*" class="form-control">
+                </div>
+        
+                <button type="submit" class="btn btn-primary">Update User</button>
+            </form>
+      
+    
+    </div>
+</div>
+
+
+
+
+<!-- Add Bootstrap JS and Popper JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

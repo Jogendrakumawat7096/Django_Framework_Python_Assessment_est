@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+    }
+
+    {% block styles %}
+    .form-container {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 500px;
+      margin: 50px auto; /* Adjusted to center the form */
+    }
+
+    .input-container {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      outline: none;
+      font-size: 16px;
+    }
+
+    label {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: #666;
+      font-size: 16px;
+      pointer-events: none;
+      transition: 0.3s ease-out;
+    }
+
+    input:focus + label,
+    input:not(:placeholder-shown) + label {
+      top: -10px;
+      font-size: 12px;
+      color: #3498db;
+    }
+
+    button {
+      background-color: #3498db;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    {% endblock %}
+
+  </style>
+</head>
+
+<body>
+  {% include 'admin-header.html' %}
+
+  <div class="container mt-4">
+    <h2 class="mb-4">Add Policy</h2>
+    {% if msg %}
+      <span style="color: red">{{ msg }}</span>
+    {% endif %}
+    <form method="post" action="{% url 'admin-add-policy' %}" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <div class="mb-3">
+        <label for="category ">Category:</label>
+        <select name="category" id="category" class="form-select">
+          {% for cat in categories %}
+            <option value="{{ cat.name }}">{{ cat.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="policy_name">Policy Name:</label>
+        <input type="text" name="policy_name" id="policy_name" class="form-control" placeholder="Enter Policy Name">
+      </div>
+
+      <div class="mb-3">
+        <label for="policy_desc">Policy Description:</label>
+        <textarea name="policy_desc" id="policy_desc" class="form-control" placeholder="Enter Policy Description"></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label for="sum_insurance">Sum Insurance:</label>
+        <input type="number" name="sum_insurance" id="sum_insurance" class="form-control" placeholder="Enter Sum Insurance">
+      </div>
+
+      <div class="mb-3">
+        <label for="premium">Premium:</label>
+        <input type="number" name="premium" id="premium" class="form-control" placeholder="Enter Premium">
+      </div>
+
+      <div class="mb-3">
+        <label for="tenure">Tenure:</label>
+        <input type="number" name="tenure" id="tenure" class="form-control" placeholder="Enter Tenure">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Add Policy</button>
+    </form>
+  </div>
+
+  <!-- Add Bootstrap JS and Popper JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

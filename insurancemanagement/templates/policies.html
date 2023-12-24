@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+
+</head>
+
+<body>
+{%include 'header.html'%}
+
+
+
+
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <h1 class="display-4 animated slideInDown mb-4">policies</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">policies</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+    <!-- Service Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center mx-auto" style="max-width: 500px;">
+                <h1 class="display-6 mb-5">We Provide professional Insurance policies</h1>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    {% for policy in policies %}
+                        <div class="service-item rounded h-100 p-5">
+                            <div class="d-flex align-items-center ms-n5 mb-4">
+                                <div class="service-icon flex-shrink-0 bg-primary rounded-end me-4">
+                                    <!-- Assuming you have an icon URL in your Policy model, replace 'policy.icon.url' with the actual field -->
+                                    <img class="img-fluid" src="{% static 'img/icon/icon-10-light.png'%}" alt="">
+                                </div>
+                                <h4 class="mb-0">{{ policy.policy_name }}</h4>
+                            </div>
+                            <p class="mb-4">{{ policy.policy_desc }}</p>
+                            <ul class="list-unstyled">
+                                <li><strong>Category:</strong> {{ policy.category.name }}</li>
+                                <li><strong>Sum Insurance:</strong> {{ policy.sum_insurance }}</li>
+                                <li><strong>Premium:</strong> {{ policy.premium }}</li>
+                                <li><strong>Tenure:</strong> {{ policy.tenure }}</li>
+                                <li><strong>Creation Date:</strong> {{ policy.creation_date }}</li>
+                            </ul>
+                            {% if applied %}
+                                <button class="btn btn-light px-3" disabled>Applied</button>
+                            {% else %}
+                                <a class="btn btn-light px-3" href="{% url 'apply-policy' pk=policy.pk %}">Apply</a>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>               
+                
+            </div>
+        </div>
+    </div>
+    <!-- Service End -->
+        
+
+{%include 'footer.html'%}
+</body>
+
+</html>

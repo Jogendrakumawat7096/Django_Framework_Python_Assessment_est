@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+    }
+
+    {% block styles %}
+    .form-container {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 500px;
+      margin: 50px auto; /* Adjusted to center the form */
+    }
+
+    .input-container {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      outline: none;
+      font-size: 16px;
+    }
+
+    label {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: #666;
+      font-size: 16px;
+      pointer-events: none;
+      transition: 0.3s ease-out;
+    }
+
+    input:focus + label,
+    input:not(:placeholder-shown) + label {
+      top: -10px;
+      font-size: 12px;
+      color: #3498db;
+    }
+
+    button {
+      background-color: #3498db;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    {% endblock %}
+
+  </style>
+</head>
+
+<body>
+  {% include 'admin-header.html' %}
+
+  <div class="container mt-5">
+    <h4>Admin - Category</h4>
+    <hr>
+    <h4>Edit Category</h4> <!-- Adjusted the heading -->
+    <hr>
+    {%if msg%}
+        <span >{{msg}}</span>
+    {%endif%}
+
+    <div class="form-container">
+
+      <form action="{%url 'admin-edit-category' pk=category.pk%}" method="post">
+        {%csrf_token%}
+        
+        <div class="input-container">
+
+          <input type="text" id="categoryName" name="categoryName" value="{{category.name}}">
+          <label for="categoryName">Category Name</label>
+        </div>
+        
+        <!-- Add more input fields as needed -->
+
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Bootstrap JS and Popper JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
